@@ -11,9 +11,7 @@
     "libxmljs" : "0.7.0"
   },
   "scripts": {
-    "pretest" : "rm -f ./test/files/*.xml",
-    "test": "node test/index.test.js",
-    "posttest" : "xmllint --noout --schema ./test/files/vast3_draft.xsd ./test/files/*.xml"
+    "test": "node test/index.test.js"
   },
   "keywords": [
     "VAST",

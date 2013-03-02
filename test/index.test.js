@@ -62,15 +62,12 @@ test('attach creatives and events', function(t){
 
 test('validate XML response', function(t) {
   x = require('libxmljs');
-  xml = x.parseXmlString(vast.xml());
+  var response = vast.xml({ pretty : true, indent: '  ', newline: '\n' });
+  // TB: If desired, uncomment here and write file to disk for review:
+  // fs.writeFileSync('./test/files/vast.xml', response);
+  xml = x.parseXmlString(response);
   xsd = x.parseXmlString(fs.readFileSync('./test/files/vast3_draft.xsd').toString());
   var result = xml.validate(xsd);
   t.ok(result, 'It validates against the VAST .xsd');
-  t.end();
-});
-
-test('write xml file for `xmllint`ing', function(t) {
-  var response = vast.xml({ pretty : true, indent: '  ', newline: '\n' })
-  fs.writeFileSync('./test/files/vast-' + Date.now() + '.xml', response);
   t.end();
 });
