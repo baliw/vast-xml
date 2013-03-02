@@ -1,4 +1,7 @@
 # vast-xml
+
+![Travis build status](https://api.travis-ci.org/tbuchok/vast-xml.png)
+
 A Node module for creating real-time VAST XML responses.
 
 Installation
