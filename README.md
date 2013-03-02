@@ -19,11 +19,13 @@ var vast = require('vast');
 
 var vast = new VAST();
 var ad = vast.attachAd({ 
-    id : 1
-  , sequence : 99
-  , AdTitle : 'Common name of the ad'
-  , AdSystem : { name: 'Test Ad Server', version : '1.0' }
-});
+      id : 1
+    , structure : 'inline'
+    , sequence : 99
+    , AdTitle : 'Common name of the ad'
+    , AdSystem : { name: 'Test Ad Server', version : '1.0' }
+    , Impression : { id : 23, url : 'http://impression.com' }
+  });
 ```
 
 ## Attach creatives
