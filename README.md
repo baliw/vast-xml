@@ -1,12 +1,6 @@
-vast-xml
----
+# vast-xml
 
 ![Travis build status](https://api.travis-ci.org/tbuchok/vast-xml.png)
-
-
-
-## Installation
-
 
 ```
 npm install vast-xml
