@@ -54,7 +54,7 @@ companionAd.attachTrackingEvent('creativeView', 'http://companionad.com/creative
 
 ```javascript
 vast.xml({ pretty : true, indent : '  ', newline : '\n' });
-``
+```
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -104,10 +104,13 @@ vast.xml({ pretty : true, indent : '  ', newline : '\n' });
 
 Currently included in the test suite are: 
 
-* linear ad with a companion ad
-* wrapper ad
+1. linear ad with a companion ad
+1. wrapper ad
+1. _More pending..._
 
-_The VAST spec is, well vast, and contains a lot of different edge cases. Pull requests and collaboration in full rounding-out this module welcome._
+The VAST spec is, well vast, and contains a lot of different corner cases. 
+
+**Pull requests, feedback and collaboration in fully rounding-out this module is more than welcome.**
 
 ## Misc
 
