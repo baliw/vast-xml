@@ -6,9 +6,11 @@
   "dependencies": {
     "xmlbuilder": "~0.4.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "tap" : "0.4.0"
+  },
   "scripts": {
-    "test": "node spec/index.spec.js"
+    "test": "node test/index.test.js"
   },
   "keywords": [
     "VAST",
