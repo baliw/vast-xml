@@ -6,8 +6,14 @@ var xml = function(options) {
   response.att('version', this.version);
   this.ads.forEach(function(ad){
     var Ad = response.element('Ad', { id : ad.id, sequence : ad.sequence });
-    if (ad.Wrapper) { 
-      Ad.element('Wrapper', ad.Wrapper); 
+    if (ad.structure.toLowerCase() === 'wrapper') { 
+      var wrapper = Ad.element('Wrapper');
+      wrapper.element('AdSystem', ad.AdSystem);
+      wrapper.element('VASTAdTagURI', ad.VASTAdTagURI);
+      ad.impressions.forEach(function(impression) {
+        wrapper.element('Impression', impression.url);
+      });
+      wrapper.element('Creatives');
     } else {
       var inline = Ad.element('InLine');
       inline.element('AdSystem', ad.AdSystem.name, { version : ad.AdSystem.version });

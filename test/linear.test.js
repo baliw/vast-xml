@@ -1,13 +1,39 @@
-var fs = require('fs')
-  , test = require('tap').test
+var test = require('tap').test
   , VAST = require('../index.js')
   , vast = new VAST();
 
+test('Validate ad settings', function(t){
+  t.throws(function(){
+   vast.attachAd({ 
+         structure : 'inline'
+       , AdSystem : 'Common name of the ad'
+       , AdTitle : 'the title'
+     });
+  }, 'It should throw an error if  no Impression or Error is set');
+  t.throws(function(){
+   vast.attachAd({ 
+         structure : 'inline'
+       , AdSystem : 'Common name of the ad'
+       , Impression : ''
+     });
+  }, 'It should throw an error if no AdTitle is set');
+  t.throws(function(){
+   vast.attachAd({ 
+         structure : 'inline'
+       , AdTitle : 'the title'
+       , Error : ''
+     });
+  }, 'It should throw an error if no AdSystem is set');
+  t.end();
+});
+
 var ad = vast.attachAd({ 
       id : 1
+    , structure : 'inline'
     , sequence : 99
     , AdTitle : 'Common name of the ad'
     , AdSystem : { name: 'Test Ad Server', version : '1.0' }
+    , Impression : { id : 23, url : 'http://impression.com' }
   });
 
 test('`VAST` object', function(t){
@@ -25,14 +51,17 @@ test('object settings', function(t) {
   t.equal(ad.Wrapper, undefined, 'It should not define a wrapper in a default VAST response');
   t.equal(ad.AdSystem.name, 'Test Ad Server', 'It should set `AdSystem`');
   t.equal(ad.AdTitle, 'Common name of the ad', 'It should set `AdTitle`');
-  ad.addImpression('sample-server', 'http://impression.com');
-  t.equal(ad.impressions[0].url, 'http://impression.com', 'It should set `Impression`');
-  t.ok(ad.creatives, 'It should have a `creatives` array');
   t.end();
 });
 
+test('attach impression', function(t){
+  ad.addImpression('sample-server', 'http://sample-impression.com');
+  t.equal(ad.impressions[ad.impressions.length - 1].url, 'http://sample-impression.com', 'It should set `Impression`');
+  t.end();
+})
 
 test('attach creatives and events', function(t){
+  t.ok(ad.creatives, 'It should have a `creatives` array');
   var creative = ad.attachLinearCreative({
       AdParameters : '<xml></xml>'
     , Duration : '00:00:30'

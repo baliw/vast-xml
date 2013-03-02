@@ -92,3 +92,11 @@ Testing
 A work in progress using Node's built-in `assert` module. 
 
 The IAB's VAST specification is, well, vast -- further automated tests are needed to ensure module aligns with the VAST 3.0 specification.
+
+## Validating
+
+`npm test` will attempt to validate the responses created in the tests. For more detailed validation of the test files or any files created by this module, follow the structure:
+
+```bash
+$ xmllint --noout --schema ./test/files/vast3_draft.xsd <the_file>.xml
+```
