@@ -54,15 +54,17 @@ var xml = function(options) {
             , apiFramework : mediaFile.apiFramework
           });
         });
-        var companionAds = creatives.element('Creative').element('CompanionAds');
-        c.companionAds.forEach(function(companionAd){
-          companionAdElement = companionAds.element('Companion', { width : companionAd.width, height : companionAd.height });
-          companionAdElement.element(companionAd.resource, companionAd.url, { creativeType: companionAd.type } );
-          var trackingEvents = companionAdElement.element('TrackingEvents');
-          companionAd.trackingEvents.forEach(function(trackingEvent){
-            trackingEvents.element('Tracking', trackingEvent.url, { event : trackingEvent.event });
+        if (c.companionAds.length > 0) {
+          var companionAds = creatives.element('Creative').element('CompanionAds');
+          c.companionAds.forEach(function(companionAd){
+            companionAdElement = companionAds.element('Companion', { width : companionAd.width, height : companionAd.height });
+            companionAdElement.element(companionAd.resource, companionAd.url, { creativeType: companionAd.type } );
+            var trackingEvents = companionAdElement.element('TrackingEvents');
+            companionAd.trackingEvents.forEach(function(trackingEvent){
+              trackingEvents.element('Tracking', trackingEvent.url, { event : trackingEvent.event });
+            });
           });
-        });
+        }
       });
     }
   });
