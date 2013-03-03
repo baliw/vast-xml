@@ -11,7 +11,7 @@ var xml = function(options) {
       wrapper.element('AdSystem', ad.AdSystem);
       wrapper.element('VASTAdTagURI', ad.VASTAdTagURI);
       ad.impressions.forEach(function(impression) {
-        wrapper.element('Impression', impression.url);
+        wrapper.element('Impression').cdata(impression.url);
       });
       wrapper.element('Creatives');
     } else {
@@ -21,7 +21,7 @@ var xml = function(options) {
       inline.element('Description', ad.Description);
       inline.element('Survey', ad.Survey);
       ad.impressions.forEach(function(impression){
-        inline.element('Impression', impression.url, { id : impression.id });
+        inline.element('Impression', { id : impression.id }).cdata(impression.url);
       });
       var creatives = inline.element('Creatives');
       ad.creatives.forEach(function(c){
@@ -32,6 +32,7 @@ var xml = function(options) {
         c.trackingEvents.forEach(function(trackingEvent){
           trackingEvents.element('Tracking', trackingEvent.url, { event : trackingEvent.event });
         });
+        creativeType.element('AdParameters').cdata(c.AdParameters);
         var videoClicks = creativeType.element('VideoClicks');
         c.videoClicks.forEach(function(videoClick){
           videoClicks.element(videoClick.type, videoClick.url, { id : videoClick.id });
