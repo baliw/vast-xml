@@ -27,7 +27,7 @@ var xml = function(options) {
       ad.creatives.forEach(function(c){
         var creative = creatives.element('Creative')
         var creativeType = creative.element(c.type);
-        creativeType.element('Duration', '00:00:00');
+        creativeType.element('Duration', c.Duration);
         var trackingEvents = creativeType.element('TrackingEvents');
         c.trackingEvents.forEach(function(trackingEvent){
           trackingEvents.element('Tracking', trackingEvent.url, { event : trackingEvent.event });
