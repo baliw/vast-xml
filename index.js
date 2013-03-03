@@ -2,6 +2,7 @@ var builder = require('xmlbuilder')
   , Ad = require('./lib/ad');
 
 var xml = function(options) {
+  var track = (options.track === undefined) ? true : options.track;
   var response = builder.create('VAST', { version : '1.0', encoding : 'UTF-8' });
   response.att('version', this.version);
   this.ads.forEach(function(ad){
@@ -11,7 +12,7 @@ var xml = function(options) {
       wrapper.element('AdSystem', ad.AdSystem);
       wrapper.element('VASTAdTagURI', ad.VASTAdTagURI);
       ad.impressions.forEach(function(impression) {
-        wrapper.element('Impression').cdata(impression.url);
+        if (track) wrapper.element('Impression').cdata(impression.url);
       });
       wrapper.element('Creatives');
     } else {
@@ -21,7 +22,7 @@ var xml = function(options) {
       inline.element('Description', ad.Description);
       inline.element('Survey', ad.Survey);
       ad.impressions.forEach(function(impression){
-        inline.element('Impression', { id : impression.id }).cdata(impression.url);
+        if (track) inline.element('Impression', { id : impression.id }).cdata(impression.url);
       });
       var creatives = inline.element('Creatives');
       ad.creatives.forEach(function(c){
@@ -30,7 +31,7 @@ var xml = function(options) {
         creativeType.element('Duration', c.Duration);
         var trackingEvents = creativeType.element('TrackingEvents');
         c.trackingEvents.forEach(function(trackingEvent){
-          trackingEvents.element('Tracking', trackingEvent.url, { event : trackingEvent.event });
+          if (track) trackingEvents.element('Tracking', trackingEvent.url, { event : trackingEvent.event });
         });
         creativeType.element('AdParameters').cdata(c.AdParameters);
         var videoClicks = creativeType.element('VideoClicks');
@@ -61,7 +62,7 @@ var xml = function(options) {
             companionAdElement.element(companionAd.resource, companionAd.url, { creativeType: companionAd.type } );
             var trackingEvents = companionAdElement.element('TrackingEvents');
             companionAd.trackingEvents.forEach(function(trackingEvent){
-              trackingEvents.element('Tracking', trackingEvent.url, { event : trackingEvent.event });
+              if (track) trackingEvents.element('Tracking', trackingEvent.url, { event : trackingEvent.event });
             });
           });
         }

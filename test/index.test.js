@@ -26,3 +26,9 @@ test('validates wrapper vast XML', function(t) {
   t.ok(result, 'It validates against the VAST .xsd');
   t.end();
 });
+
+test('omit tracking', function(t) {
+ var response = linear.xml({ track : false });
+ t.notOk(/Impression/.test(response), 'It should not include impressions');
+ t.end();
+});
